@@ -32,7 +32,8 @@ from utils.metrics import accuracy
 def arg_parse(parser):
     parser.add_argument('--dataset', type=str, default='cora', help='Dataset')
     parser.add_argument('--teacher', type=str, default='GCN', help='Teacher Model')
-    parser.add_argument('--device', type=int, default=2, help='CUDA Device')
+    #parser.add_argument('--device', type=int, default=2, help='CUDA Device')
+    parser.add_argument('--device', type=int, default=0, help='CUDA Device')
     parser.add_argument('--labelrate', type=int, default=20, help='Label rate')
     return parser.parse_args()
 
@@ -250,6 +251,7 @@ if __name__ == '__main__':
     else:
         conf['device'] = torch.device("cpu")
     conf = dict(conf, **args.__dict__)
+    conf['device'] = torch.device("cpu")
     print(conf)
     output_dir, cascade_dir = choose_path(conf)
     logger = get_logger(output_dir.joinpath('log'))
